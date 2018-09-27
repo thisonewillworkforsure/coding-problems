@@ -1,0 +1,45 @@
+/*There are three types of edits that can be performed on strings: insert a character, remove a character, or replace a character. 
+Given two strings, write a function to check if they are one edit (or zero) edits away. */
+
+bool oneAway(std::string a, std::string b)
+{
+    if(a==b)
+    return true;
+    if(abs(a.length()-b.length()) >1)
+    return false;
+    int numErr = 0;
+    int i = 0;
+    //looping if they have the same length
+    if(a.length() == b.length())
+    {
+    while(i< a.length())
+    {
+        if(a[i] != b[i])
+        {
+            numErr++;
+            if(numErr>1)
+            return false;
+        }
+        i++;
+    }
+       return true; 
+    }
+    //now for irregular lengths
+    while(i<a.length() && i <b.length())
+    {
+        if(a[i] != b[i])
+        {
+            numErr++;
+            if(numErr > 1)
+            return false;
+            if(a.length()>b.length())
+            a.erase(i,1);
+            else
+            b.erase(i,1);
+            if(a[i] != b[i])
+            return false;
+        }
+        i++;
+    }
+    return true;
+}
